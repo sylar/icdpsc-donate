@@ -1,0 +1,30 @@
+{
+  "name": "icdpsc donations page",
+  "version": "1.0.0",
+  "homepage": "https://github.com/andreiconstantinescu/icpsc-donate",
+  "authors": [
+    "Andrei Constantinescu <andrei@constantinescu.io>"
+  ],
+  "description": "This is the source code for thr ICDPSC donation page.",
+  "main": "main.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "icdpsc",
+    "donation"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-tubular": "*",
+    "bootstrap": "~3.3.2"
+  }
+}
