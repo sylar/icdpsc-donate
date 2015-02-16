@@ -29,6 +29,7 @@
     "font-awesome": "~4.3.0",
     "jquery-easing": "*",
     "BigVideo.js": "~1.1.4",
-    "jquery.mb.ytplayer": "~2.8.0"
+    "jquery.mb.ytplayer": "~2.8.0",
+    "gmaps": "~0.4.17"
   }
 }
