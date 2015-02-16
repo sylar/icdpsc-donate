@@ -1,0 +1,162 @@
+doctype html(lang='en')
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='Andrei Constantinescu')
+      
+    title ICDPSC - Donations
+    
+    // build:css css/main.css
+    // bower:css
+    link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='bower_components/font-awesome/css/font-awesome.css')
+    link(rel='stylesheet', href='bower_components/video.js/dist/video-js/video-js.css')
+    // endbower
+    link(href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='bower_components/jquery.mb.ytplayer/css/YTPlayer.css')
+    link(rel='stylesheet', href='bower_components/IconHoverEffects/css/component.css')
+    link(rel="stylesheet", href='css/main.css')
+    // endbuild
+
+
+  body(id='page-top')
+    //- Google Maps script
+    script(src='//maps.google.com/maps/api/js?sensor=true')
+      
+    //- Useref's and wiredep's semantic comments.
+    // build:js js/main.js
+    // bower:js
+    script(src='bower_components/jquery/jquery.js')
+    script(src='bower_components/bootstrap/dist/js/bootstrap.js')
+    script(src='bower_components/jquery-easing/jquery.easing.js')
+    script(src='bower_components/jquery-easing/jquery.easing.min.js')
+    script(src='bower_components/jquery-ui/jquery-ui.js')
+    script(src='bower_components/video.js/dist/video-js/video.js')
+    script(src='bower_components/eventEmitter/EventEmitter.js')
+    script(src='bower_components/eventie/eventie.js')
+    script(src='bower_components/imagesloaded/imagesloaded.js')
+    script(src='bower_components/BigVideo.js/lib/bigvideo.js')
+    script(src='bower_components/gmaps/gmaps.js')
+    // endbower
+    script(src='bower_components/jquery-tubular/dist/js/jquery-tubular.min.js')
+    script(src='bower_components/jquery.mb.ytplayer/inc/jquery.mb.YTPlayer.min.js')
+    script(src='js/main.js')
+    // endbuild
+    
+    a(id="bgndVideo", class="player", data-property="{videoURL:'fbEgJ8RIDX8',containment:'body', autoPlay:true, loop:false, vol:30, mute:false, startAt:0, opacity:0.8, addRaster:true, quality:'default', optimizeDisplay: false, realfullscreen: true, ratio: '16/9', showControls: true, stopMovieOnBlur: false}") ICDPSC Video
+
+    .credits(id="vidDdata") 
+      .title Institutul de Cercetare si Dezvoltare Psihologica si Stiinte Conexe
+      .music muzica/text: Pavel Petricenco, Andy Robert
+      .singer interpret: Pavel Petricenco
+    .container
+      nav.navbar.navbar-custom.navbar-fixed-top(role='navigation')
+        .container
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-main-collapse')
+              i.fa.fa-bars
+            a.navbar-brand.page-scroll(href='#page-top')
+              span Fii schimbarea!
+          .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+            ul.nav.navbar-nav
+              li.hidden
+                a(href='#page-top')
+              li
+                a.page-scroll(href='#about') Despre
+              li
+                a.page-scroll(href='#donate') Donează
+              li
+                a.page-scroll(href='#contact') Contactează
+      .header
+        .logo
+          img(src='assets/img/logo.png')
+        .chevron: .hi-icon-wrap.hi-icon-effect-9.hi-icon-effect-9a: .hi-icon
+                i.fa.fa-chevron-down.fa-2x
+          
+      section#about
+        .row
+          .col-lg-8.col-lg-offset-2
+            h2 Despre Change Life
+            p
+              blockquote Change Life este un proiect al Institutului de Cercetare și Dezvoltare Psihologică și Științe Conexe format dintr-o echipă inter-diciplinară de specialiști din domenii variate ce are ca scop îmbunătățirea vieții prin sprijinirea pasiunilor și a vocațiilor, incluziunea și coeziunea socială și dezvoltarea inteligentă a societății.
+              br
+            #carousel-kids.carousel.slide(data-ride='carousel')
+              // Indicators
+              ol.carousel-indicators
+                li.active(data-target='#carousel-kids', data-slide-to='0')
+                |     
+                li(data-target='#carousel-kids', data-slide-to='1')
+                |     
+                li(data-target='#carousel-kids', data-slide-to='2')
+              // Wrapper for slides
+              .carousel-inner(role='listbox')
+                .item.active
+                  img(src='http://lorempixel.com/800/400', alt='...')
+                  .carousel-caption
+                    | Minidescriere
+                .item
+                  img(src='http://lorempixel.com/800/400', alt='...')
+                  .carousel-caption
+                    | Minidescriere
+                .item
+                  img(src='http://lorempixel.com/800/400', alt='...')
+                  .carousel-caption
+                    | Minidescriere
+              // Controls
+              a.left.carousel-control(href='#carousel-kids', role='button', data-slide='prev')
+                span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+                |     
+                span.sr-only Previous
+              |   
+              a.right.carousel-control(href='#carousel-kids', role='button', data-slide='next')
+                span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+                |     
+                span.sr-only Next
+            br 
+            p
+              blockquote În prezent I.C.D.P.S.C. prin programul Change Life facilitează cursuri gratuite zilnice de recreere, socializare și dezvoltare armonioasă prin înot. Proiectul se adresează unui număr de 138 de copii aflați în grija centrelor de plasament din București, prin cursuri de inițiere în înot, dezvoltare personală și trecerea de la starea de dependentă la independență. Cursurile de înot se desfășoară în cadrul bazinului Federației Române de Polo, fiind coordonate de personal multidisciplinar calificat (voluntari, psihologi, avocați, antrenori etc). Aceste cursuri au că scop oferirea sprijinului și șansei în descoperirea identității și a carierei profesionale pe bază propriilor resurse.
+            .logo: img(src='assets/img/logo.png')
+      section#donate
+        .row.text-center
+          .col-lg-8.col-lg-offset-2
+            h2 Susține proiectul Change Life
+            p Cu ajutorul oamenilor ca tine putem sa ii ajutam pe cei care au cu adevărată nevoie. Așa ca FII SCHIMBAREA!
+            .row
+              .col-sm-6
+                a.btn.btn-default.btn-lg(href='http://institutdepsihologie.ro') Află mai multe
+              .col-sm-6
+                a.btn.btn-default.btn-lg(href='#') Donează
+      section#contact
+        .row
+          .col-lg-8.col-lg-offset-2
+            h2 Contactează-ne
+            p Pentru orice întrebare, nelămurire sau inițiativă, nu ezita să ne contactezi:
+            address
+              strong Institutul de Cercetare si Dezvoltare Psihologica și Științe Conexe
+              br
+              | Șos. Ștefan cel Mare nr 4
+              br
+              | București, Romania
+              br
+              | Tel: 021 231 9613 
+              br
+              |      0724 274 099 
+              br
+              |      0748 234 322
+              br
+              | Email: 
+              a(mailto='contact@institutdepsihologie.ro') contact@institutdepsihologie.ro
+              br
+              | Website: 
+              a(href='http://institutdepsihologie.ro')
+            ul.list-inline.banner-social-buttons
+              li
+                a.btn.btn-default.btn-lg(href='https://www.facebook.com/InstitutDePsihologie')
+                  i.fa.fa-facebook.fa-fw
+                  |  
+                  span.network-name Facebook
+        #map
