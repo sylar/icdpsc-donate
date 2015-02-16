@@ -9,6 +9,8 @@ var wiredep = require('wiredep').stream;
 var browserSync = require('browser-sync');
 var saveLicense = require('uglify-save-license');
 var penthouse = require('penthouse');
+var when = require('when');
+var nodefn = require('when/node');
 var pagespeed = require('psi');
 var ngrok = require('ngrok');
 var path = require('path');
@@ -17,7 +19,7 @@ var fs = require('fs');
 var paths = {
   client: path.normalize('./client'),
   public: path.normalize('./public'),
-  temp: path.normalize('./.tmp')
+  tmp: path.normalize('./.tmp')
 };
 
 var options = {
@@ -33,7 +35,7 @@ var options = {
     'bb >= 10'
   ],
   uglify: {
-    preserveComments: saveLicense
+    preserveComments: 'some'
   },
   imagemin: {
     progressive: true,
@@ -41,6 +43,9 @@ var options = {
   },
   jade: {
     pretty: true
+  },
+  useref:{
+    searchPath: '{.tmp,client}'
   }
 };
 
@@ -53,7 +58,7 @@ gulp.task('wiredep', function () {
 gulp.task('html:jade', ['wiredep'], function () {
   return gulp.src(path.normalize(path.join(paths.client, 'index.jade')))
     .pipe($.jade(options.jade))
-    .pipe(gulp.dest(paths.temp))
+    .pipe(gulp.dest(paths.tmp))
     .pipe(browserSync.reload({stream:true}));
 });
 
@@ -61,14 +66,14 @@ gulp.task('css:stylus', function () {
   return gulp.src(path.normalize(path.join(paths.client, '/style/main.styl')))
     .pipe($.stylus())
     .pipe($.autoprefixer(options.autoprefixer))
-    .pipe(gulp.dest(path.normalize(path.join(paths.temp, '/css'))))
+    .pipe(gulp.dest(path.normalize(path.join(paths.tmp, '/css'))))
     .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('js:coffee', function () {
   return gulp.src(path.normalize(path.join(paths.client, '/coffee/*.coffee')))
     .pipe($.coffee(options.coffee))
-    .pipe(gulp.dest(path.normalize(path.join(paths.temp, '/js'))))
+    .pipe(gulp.dest(path.normalize(path.join(paths.tmp, '/js'))))
     .pipe(browserSync.reload({stream:true}));
 });
 
@@ -83,14 +88,17 @@ gulp.task('assets:move', function () {
 
 gulp.task('build:common', ['html:jade', 'css:stylus', 'js:coffee'], function () {});
 
-gulp.task('build:dist:base', ['build:common', 'assets:move'], function () {
+var cssPath;
+
+gulp.task('build:base', ['build:common', 'assets:move'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   var htmlFilter = $.filter('**/*.html');
-  var assets = $.useref.assets();
+  var assets = $.useref.assets(options.useref);
 
-  return gulp.src(path.normalize(path.join(paths.temp, 'index.html')))
+  return gulp.src(path.normalize(path.join(paths.tmp, 'index.html')))
     .pipe(assets)
+    .pipe($.rev())
 
     .pipe(jsFilter)
     .pipe($.uglify(options.uglify))
@@ -98,6 +106,11 @@ gulp.task('build:dist:base', ['build:common', 'assets:move'], function () {
 
     .pipe(cssFilter)
     .pipe($.minifyCss())
+    .pipe($.tap(function (file) {
+      // Get the path of the revReplaced CSS file.
+      var tmpPath = path.resolve(paths.tmp);
+      cssPath = file.path.replace(tmpPath, '');
+    }))
     .pipe(cssFilter.restore())
 
     .pipe(assets.restore())
@@ -107,13 +120,13 @@ gulp.task('build:dist:base', ['build:common', 'assets:move'], function () {
     .pipe($.minifyHtml())
     .pipe(htmlFilter.restore())
 
+    .pipe($.revReplace())
     .pipe(gulp.dest(paths.public));
 });
 
 var criticalCSS = '';
 
-gulp.task('css:critical', ['build:dist:base'], function (done) {
-
+gulp.task('css:critical', ['build:base'], function (done) {
   var s = express();
   var p = 9876;
 
@@ -122,7 +135,7 @@ gulp.task('css:critical', ['build:dist:base'], function (done) {
   var server = s.listen(p, function () {
     penthouse({
       url: 'http://localhost:' + p,
-      css: path.join(paths.public, '/css/main.css'),
+      css: path.normalize(path.join(paths.public, cssPath)),
       width: 1440,
       height: 900
     }, function (error, cCSS) {
@@ -134,12 +147,7 @@ gulp.task('css:critical', ['build:dist:base'], function (done) {
   });
 });
 
-gulp.task('build:dist', ['css:critical'], function () {
-  fs.writeFile(path.normalize(path.join(paths.public, 'CNAME')), 'constantinescu.io', function (err) {
-    if (err) {
-      console.log('Error: ',err.message);
-    }
-  });
+gulp.task('build', ['css:critical'], function () {
   return gulp.src(path.normalize(path.join(paths.public, 'index.html')))
     .pipe($.replace(
       '<link rel=stylesheet href=css/main.css>',
@@ -156,12 +164,12 @@ gulp.task('watch', ['build:common'], function () {
 
   browserSync.init({
     server: {
-      baseDir: [paths.temp, paths.client]
+      baseDir: [paths.tmp, paths.client]
     }
   });
 });
 
-gulp.task('serve', ['build:common'], function () {
+gulp.task('serve', ['build'], function () {
   browserSync.init({
     server: {
       baseDir: paths.public
@@ -189,8 +197,8 @@ gulp.task('pagespeed', function (done) {
 });
 
 gulp.task('clean', function () {
-  gulp.src(path.normalize(paths.public))
-    .pipe($.rimraf());
-  return gulp.src(path.normalize(paths.temp))
-    .pipe($.rimraf());
+  gulp.src(path.normalize(paths.tmp))
+    .pipe($.clean());
+  return gulp.src(path.normalize(paths.public))
+    .pipe($.clean());
 });

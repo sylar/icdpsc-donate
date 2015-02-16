@@ -25,6 +25,10 @@
   ],
   "dependencies": {
     "jquery-tubular": "*",
-    "bootstrap": "~3.3.2"
+    "bootstrap": "~3.3.2",
+    "font-awesome": "~4.3.0",
+    "jquery-easing": "*",
+    "BigVideo.js": "~1.1.4",
+    "jquery.mb.ytplayer": "~2.8.0"
   }
 }
