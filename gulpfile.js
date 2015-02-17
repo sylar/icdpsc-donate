@@ -111,6 +111,9 @@ gulp.task('build:base', ['build:common', 'assets:move'], function () {
       var tmpPath = path.resolve(paths.tmp);
       cssPath = file.path.replace(tmpPath, '');
     }))
+    // .pipe($.uncss({
+    //   html: path.join(paths.tmp, 'index.html')
+    // }))
     .pipe(cssFilter.restore())
 
     .pipe(assets.restore())

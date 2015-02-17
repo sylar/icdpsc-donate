@@ -47,7 +47,8 @@ html
     script(src='js/main.js')
     // endbuild
     
-    a(id="bgndVideo", class="player", data-property="{videoURL:'fbEgJ8RIDX8',containment:'body', autoPlay:true, loop:false, vol:30, mute:false, startAt:0, opacity:0.8, addRaster:true, quality:'default', optimizeDisplay: false, realfullscreen: true, ratio: '16/9', showControls: true, stopMovieOnBlur: false}") ICDPSC Video
+    div
+      a(id="bgndVideo", class="player", data-property="{videoURL:'fbEgJ8RIDX8',containment:'body', autoPlay:true, loop:true, vol:30, mute:false, startAt:0, opacity:0.8, addRaster:true, quality:'default', optimizeDisplay: false, realfullscreen: true, ratio: '16/9', showControls: true, stopMovieOnBlur: false}") ICDPSC Video
 
     .credits(id="vidDdata") 
       .title Institutul de Cercetare si Dezvoltare Psihologica si Stiinte Conexe
@@ -108,12 +109,12 @@ html
                     | Minidescriere
               // Controls
               a.left.carousel-control(href='#carousel-kids', role='button', data-slide='prev')
-                span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+                i.fa.fa-chevron-left(aria-hidden='true')
                 |     
                 span.sr-only Previous
               |   
               a.right.carousel-control(href='#carousel-kids', role='button', data-slide='next')
-                span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+                i.fa.fa-chevron-right(aria-hidden='true')
                 |     
                 span.sr-only Next
             br 
