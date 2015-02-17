@@ -108,9 +108,6 @@ gulp.task('build:base', ['build:common', 'assets:move'], function () {
 
     .pipe($.if('*.js', $.uglify(options.uglify)))
 
-    .pipe($.if('*.css', $.uncss({
-      html: [path.join(paths.tmp, 'index.html')]
-    })))
     .pipe($.if('*.css', $.csso()))
     .pipe($.if('*.css', $.tap(function (file) {
       // Get the path of the revReplaced CSS file.
@@ -125,6 +122,16 @@ gulp.task('build:base', ['build:common', 'assets:move'], function () {
 
     .pipe($.revReplace())
     .pipe(gulp.dest(paths.public));
+});
+
+gulp.task('css:uncss', ['build:base'], function () {
+  return gulp.src(path.normalize(path.join(paths.public, cssPath)))
+      .pipe($.uncss({
+        html: [path.join(paths.public, 'index.html')],
+        ignore: ['.carousel', '.credits', '.header', '.navbar-custom']
+      }))
+      .pipe($.rimraf())
+      .pipe(gulp.dest(path.normalize(path.join(paths.public, 'css'))));
 });
 
 var criticalCSS = '';
