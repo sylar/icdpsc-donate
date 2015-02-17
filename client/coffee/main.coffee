@@ -2,7 +2,7 @@ $(document).ready ->
   $credits = $('.credits')
   $creditsPosition = $credits.offset()
   $('.video-ads').remove()
-  loadCSS('/css/main.css')
+  loadCSS('css/main.css')
 # jQuery to collapse the navbar on scroll
   $(window).scroll ->
     if $('.navbar').offset().top > 50

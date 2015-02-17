@@ -88,9 +88,6 @@ gulp.task('fonts', function () {
 gulp.task('assets:move', ['fonts'], function () {
   var imgFilter = $.filter('**/img/**/*.*');
   return gulp.src(path.normalize(path.join(paths.client, '/assets/**/*')))
-    .pipe($.tap(function (file) {
-      console.log(file)
-    }))
     .pipe(imgFilter)
     .pipe($.cache($.imagemin(options.imagemin)))
     .pipe(imgFilter.restore())
@@ -102,9 +99,6 @@ gulp.task('build:common', ['html:jade', 'css:stylus', 'js:coffee'], function () 
 var cssPath;
 
 gulp.task('build:base', ['build:common', 'assets:move'], function () {
-  var jsFilter = $.filter('**/*.js');
-  var cssFilter = $.filter('**/*.css');
-  var htmlFilter = $.filter('**/*.html');
   var assets = $.useref.assets(options.useref);
 
   return gulp.src(path.normalize(path.join(paths.tmp, 'index.html')))
@@ -121,7 +115,7 @@ gulp.task('build:base', ['build:common', 'assets:move'], function () {
     .pipe($.if('*.css', $.tap(function (file) {
       // Get the path of the revReplaced CSS file.
       var tmpPath = path.resolve(paths.tmp);
-      cssPath = file.path.replace(tmpPath, '');
+      cssPath = file.path.replace(tmpPath + '/', '');
     })))
 
     .pipe(assets.restore())
@@ -157,7 +151,6 @@ gulp.task('css:critical', ['build:base'], function (done) {
 });
 
 gulp.task('build', ['css:critical'], function () {
-  console.log(cssPath)
   return gulp.src(path.normalize(path.join(paths.public, 'index.html')))
     .pipe($.replace(
       '<link rel=stylesheet href=' + cssPath + '>',
