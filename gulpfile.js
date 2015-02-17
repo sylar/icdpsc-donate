@@ -157,7 +157,7 @@ gulp.task('css:critical', ['build:base'], function (done) {
   });
 });
 
-gulp.task('build', ['css:critical'], function () {
+gulp.task('build', ['build:base'], function () {
   return gulp.src(path.normalize(path.join(paths.public, 'index.html')))
     .pipe($.replace(
       '<link rel=stylesheet href=' + cssPath + '>',
