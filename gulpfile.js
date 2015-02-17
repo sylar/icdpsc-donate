@@ -111,28 +111,23 @@ gulp.task('build:base', ['build:common', 'assets:move'], function () {
     .pipe(assets)
     .pipe($.rev())
 
-    .pipe(jsFilter)
-    .pipe($.uglify(options.uglify))
-    .pipe(jsFilter.restore())
 
-    .pipe(cssFilter)
-    .pipe($.minifyCss())
-    .pipe($.tap(function (file) {
+    .pipe($.if('*.js', $.uglify(options.uglify)))
+
+    .pipe($.if('*.css', $.uncss({
+      html: [path.join(paths.tmp, 'index.html')]
+    })))
+    .pipe($.if('*.css', $.csso()))
+    .pipe($.if('*.css', $.tap(function (file) {
       // Get the path of the revReplaced CSS file.
       var tmpPath = path.resolve(paths.tmp);
       cssPath = file.path.replace(tmpPath, '');
-    }))
-    // .pipe($.uncss({
-    //   html: path.join(paths.tmp, 'index.html')
-    // }))
-    .pipe(cssFilter.restore())
+    })))
 
     .pipe(assets.restore())
     .pipe($.useref())
 
-    .pipe(htmlFilter)
-    .pipe($.minifyHtml())
-    .pipe(htmlFilter.restore())
+    .pipe($.if('*.html', $.minifyHtml()))
 
     .pipe($.revReplace())
     .pipe(gulp.dest(paths.public));
@@ -162,9 +157,10 @@ gulp.task('css:critical', ['build:base'], function (done) {
 });
 
 gulp.task('build', ['css:critical'], function () {
+  console.log(cssPath)
   return gulp.src(path.normalize(path.join(paths.public, 'index.html')))
     .pipe($.replace(
-      '<link rel=stylesheet href=css/main.css>',
+      '<link rel=stylesheet href=' + cssPath + '>',
       '<style>' + criticalCSS + '</style>'
     ))
     .pipe(gulp.dest(paths.public));

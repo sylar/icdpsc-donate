@@ -31,6 +31,7 @@
     "BigVideo.js": "~1.1.4",
     "jquery.mb.ytplayer": "~2.8.0",
     "gmaps": "~0.4.17",
-    "IconHoverEffects": "git://github.com/codrops/IconHoverEffects.git#bfaf5e29c33860a7a46f1a40ba7431eb9b5140ce"
+    "IconHoverEffects": "git://github.com/codrops/IconHoverEffects.git#bfaf5e29c33860a7a46f1a40ba7431eb9b5140ce",
+    "loadcss": "~0.1.4"
   }
 }
