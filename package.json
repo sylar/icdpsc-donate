@@ -35,6 +35,7 @@
     "gulp-clean": "^0.3.1",
     "gulp-coffee": "^2.2.0",
     "gulp-filter": "^2.0.0",
+    "gulp-flatten": "0.0.4",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.1.0",
     "gulp-inline-css": "^1.0.1",
@@ -52,11 +53,15 @@
     "gulp-uncss": "^1.0.0",
     "gulp-useref": "^1.0.2",
     "gulp-util": "^3.0.1",
+    "main-bower-files": "^2.5.0",
     "ngrok": "^0.1.98",
     "penthouse": "^0.2.51",
     "psi": "^0.1.6",
     "uglify-save-license": "^0.4.1",
     "when": "^3.7.2",
     "wiredep": "^2.2.2"
+  },
+  "devDependencies": {
+    "gulp-bower": "0.0.10"
   }
 }

@@ -15,6 +15,7 @@ var pagespeed = require('psi');
 var ngrok = require('ngrok');
 var path = require('path');
 var fs = require('fs');
+var mainBowerFiles = require('main-bower-files');
 
 var paths = {
   client: path.normalize('./client'),
@@ -77,13 +78,23 @@ gulp.task('js:coffee', function () {
     .pipe(browserSync.reload({stream:true}));
 });
 
-gulp.task('assets:move', function () {
+gulp.task('fonts', function () {
+  return gulp.src(mainBowerFiles())
+    .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
+    .pipe($.flatten())
+    .pipe(gulp.dest(paths.public + '/fonts'));
+});
+
+gulp.task('assets:move', ['fonts'], function () {
   var imgFilter = $.filter('**/img/**/*.*');
-  return gulp.src(paths.client + '/assets/**/*')
+  return gulp.src(path.normalize(path.join(paths.client, '/assets/**/*')))
+    .pipe($.tap(function (file) {
+      console.log(file)
+    }))
     .pipe(imgFilter)
     .pipe($.cache($.imagemin(options.imagemin)))
     .pipe(imgFilter.restore())
-    .pipe(gulp.dest(path.normalize(path.join(paths.public, '/assets'))));
+    .pipe(gulp.dest(path.normalize(path.join(paths.public, '/assets/'))));
 });
 
 gulp.task('build:common', ['html:jade', 'css:stylus', 'js:coffee'], function () {});
@@ -172,7 +183,7 @@ gulp.task('watch', ['build:common'], function () {
   });
 });
 
-gulp.task('serve', ['build'], function () {
+gulp.task('serve', function () {
   browserSync.init({
     server: {
       baseDir: paths.public
@@ -200,6 +211,7 @@ gulp.task('pagespeed', function (done) {
 });
 
 gulp.task('clean', function () {
+  $.cache.clearAll();
   gulp.src(path.normalize(paths.tmp))
     .pipe($.clean());
   return gulp.src(path.normalize(paths.public))
