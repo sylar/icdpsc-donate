@@ -88,6 +88,9 @@ gulp.task('fonts', function () {
 gulp.task('assets:move', ['fonts'], function () {
   var imgFilter = $.filter('**/img/**/*.*');
   return gulp.src(path.normalize(path.join(paths.client, '/assets/**/*')))
+    .pipe($.tap(function (file) {
+      console.log(file)
+    }))
     .pipe(imgFilter)
     .pipe($.cache($.imagemin(options.imagemin)))
     .pipe(imgFilter.restore())
@@ -99,39 +102,40 @@ gulp.task('build:common', ['html:jade', 'css:stylus', 'js:coffee'], function () 
 var cssPath;
 
 gulp.task('build:base', ['build:common', 'assets:move'], function () {
+  var jsFilter = $.filter('**/*.js');
+  var cssFilter = $.filter('**/*.css');
+  var htmlFilter = $.filter('**/*.html');
   var assets = $.useref.assets(options.useref);
 
   return gulp.src(path.normalize(path.join(paths.tmp, 'index.html')))
     .pipe(assets)
     .pipe($.rev())
 
+    .pipe(jsFilter)
+    .pipe($.uglify(options.uglify))
+    .pipe(jsFilter.restore())
 
-    .pipe($.if('*.js', $.uglify(options.uglify)))
-
-    .pipe($.if('*.css', $.csso()))
-    .pipe($.if('*.css', $.tap(function (file) {
+    .pipe(cssFilter)
+    .pipe($.minifyCss())
+    .pipe($.tap(function (file) {
       // Get the path of the revReplaced CSS file.
       var tmpPath = path.resolve(paths.tmp);
-      cssPath = file.path.replace(tmpPath + '/', '');
-    })))
+      cssPath = file.path.replace(tmpPath, '');
+    }))
+    // .pipe($.uncss({
+    //   html: path.join(paths.tmp, 'index.html')
+    // }))
+    .pipe(cssFilter.restore())
 
     .pipe(assets.restore())
     .pipe($.useref())
 
-    .pipe($.if('*.html', $.minifyHtml()))
+    .pipe(htmlFilter)
+    .pipe($.minifyHtml())
+    .pipe(htmlFilter.restore())
 
     .pipe($.revReplace())
     .pipe(gulp.dest(paths.public));
-});
-
-gulp.task('css:uncss', ['build:base'], function () {
-  return gulp.src(path.normalize(path.join(paths.public, cssPath)))
-      .pipe($.uncss({
-        html: [path.join(paths.public, 'index.html')],
-        ignore: ['.carousel', '.credits', '.header', '.navbar-custom']
-      }))
-      .pipe($.rimraf())
-      .pipe(gulp.dest(path.normalize(path.join(paths.public, 'css'))));
 });
 
 var criticalCSS = '';
@@ -160,7 +164,7 @@ gulp.task('css:critical', ['build:base'], function (done) {
 gulp.task('build', ['build:base'], function () {
   return gulp.src(path.normalize(path.join(paths.public, 'index.html')))
     .pipe($.replace(
-      '<link rel=stylesheet href=' + cssPath + '>',
+      '<link rel=stylesheet href=css/main.css>',
       '<style>' + criticalCSS + '</style>'
     ))
     .pipe(gulp.dest(paths.public));
