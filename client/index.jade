@@ -15,8 +15,8 @@ html
     link(rel='stylesheet', href='bower_components/font-awesome/css/font-awesome.css')
     link(rel='stylesheet', href='bower_components/video.js/dist/video-js/video-js.css')
     // endbower
-    link(href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic', rel='stylesheet', type='text/css')
-    link(href='http://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,latin-ext', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='bower_components/jquery.mb.ytplayer/css/YTPlayer.css')
     link(rel='stylesheet', href='bower_components/IconHoverEffects/css/component.css')
     link(rel="stylesheet", href='css/main.css')
@@ -30,6 +30,7 @@ html
     //- Useref's and wiredep's semantic comments.
     // build:js js/main.js
     // bower:js
+    script(src='bower_components/modernizr/modernizr.js')
     script(src='bower_components/jquery/jquery.js')
     script(src='bower_components/bootstrap/dist/js/bootstrap.js')
     script(src='bower_components/jquery-easing/jquery.easing.js')
@@ -45,6 +46,7 @@ html
     // endbower
     script(src='bower_components/jquery-tubular/dist/js/jquery-tubular.min.js')
     script(src='bower_components/jquery.mb.ytplayer/inc/jquery.mb.YTPlayer.min.js')
+      
     script(src='js/main.js')
     // endbuild
     
@@ -82,9 +84,40 @@ html
       section#about
         .row
           .col-lg-8.col-lg-offset-2
-            h2 Despre Change Life
+            h1 Despre Change Life
             p
-              blockquote Change Life este un proiect al Institutului de Cercetare și Dezvoltare Psihologică și Științe Conexe format dintr-o echipă inter-diciplinară de specialiști din domenii variate ce are ca scop îmbunătățirea vieții prin sprijinirea pasiunilor și a vocațiilor, incluziunea și coeziunea socială și dezvoltarea inteligentă a societății.
+              strong Change Life 
+              | este un program educativ-cultural-social si de mentorat adresat copiilor orfani si din medii vulnerabile din Romania.
+
+            p
+              strong Misiunea 
+              | programului Change Life este sustinerea si sprijinul financiar al copiilor si adolescentilor pana in ziua in care vor fi capabili sa isi castige singuri existenta.
+              
+            h2 De ce este diferit Change Life?
+            p
+              strong Datorita durabilitatii si consecventei 
+              | pe o perioada mare de timp: 7ani, 10ani, 15ani, in functie de varsta copiilor fiind alaturi de ei atat in perioada copilariei, adolescentei cat si a maturitatii ajutandu-i sa isi castige singuri existenta.
+            p Change Life este unul dintre cele mai lungi programe de voluntariat datorita implicarii zilnice in viata copiilor.
+            p Change Life este sustinut continuu de o echipa multidisciplinara de cercetatori, militand pentru crearea si implementarea programelor educationale pentru imbunatatirea si calitatea vietii acestor copii.
+
+            h2 Cine sunt mentorii? 
+            p Psihologi, economisti, medici, informaticieni, sportivi, regizori, avocati, matematicieni, istorici, profesori universitari, studenti, dar si oricine care isi poate lua un angajament moral prin care sa fie activ in viata copiilor, oferindu-le modele si repere parentale.
+
+            p
+              blockquote Da-i omului un peste si va avea de mancare o zi. Invata-l cum sa pescuiasca si va avea de mancare toata viata.
+
+            p Sustineti Change Life pentru a construi un centru educational-recreativ care sa contina cabinete de asistenta psihologica, medicala, sala de meditatii, sala recreativa, sala de lectura, bibloteca, cursuri de dezvoltare personală pentru copii, cursuri de informatica, îndrumarea copiilor pentru formarea carierei profesionale, analiza parcursului educaţional al adolescenţilor, recomandări pentru continuarea studiilor şi pentru urmarea unor cursuri de calificare, obţinerea unei slujbe (identificare locuri de muncă, pregătirea pentru interviu).
+            p Foarte multi dintre acesti copii au posibilitati intelectuale si dorinta de a studia, dar datorita contextului socio- familial ajung in situatii critice devenind analfabeti sau chiar pe strazi.
+            p Educatia este singura sansa a copiilor institutionalizati si din medii vulnerabile!
+
+            h2 Transparenta: 
+            p Oferim transparenta programului Change Life pe pagina noastra de  facebook si pe website, unde puteti observa activitatile programului; construirea centrelor educationale sau puteti fi alaturi de noi prin implicare directa (voluntariat,mentorat) sau indirecta prin donatii, etc.
+ 
+            p Si prin programul 
+              strong TRAVEL DONATE 
+              | puteti face excursii in tara noastra, pornid de la ideea ca puteti calatori cunoscund o tara cu peisaje superbe din Europa, sigur, asigurandu-va de calitatea serviciilor printr-un ghid care sa va ajute sa petreceti o vacanta de neuitat.(cele mai bune restaurante, cele mai importante locuri de vizitat, informatii despre cultura orasului, cultura tarii etc) 
+            p Travel Donate este o vacanta cu un scop nobil,caritabil sustinand copiii sa se bucure de un viitor mai bun.
+
               br
             #carousel-kids.carousel.slide(data-ride='carousel')
               // Indicators
@@ -97,17 +130,9 @@ html
               // Wrapper for slides
               .carousel-inner(role='listbox')
                 .item.active
-                  img(src='assets/img/placeholder.jpeg', alt='...')
-                  .carousel-caption
-                    | Minidescriere
+                  img(src='assets/img/image1.jpg', alt='...')
                 .item
-                  img(src='assets/img/placeholder.jpeg', alt='...')
-                  .carousel-caption
-                    | Minidescriere
-                .item
-                  img(src='assets/img/placeholder.jpeg', alt='...')
-                  .carousel-caption
-                    | Minidescriere
+                  img(src='assets/img/image4.jpg', alt='...')
               // Controls
               a.left.carousel-control(href='#carousel-kids', role='button', data-slide='prev')
                 i.fa.fa-chevron-left(aria-hidden='true')

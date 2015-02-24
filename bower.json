@@ -32,6 +32,8 @@
     "jquery.mb.ytplayer": "~2.8.0",
     "gmaps": "~0.4.17",
     "IconHoverEffects": "git://github.com/codrops/IconHoverEffects.git#bfaf5e29c33860a7a46f1a40ba7431eb9b5140ce",
-    "loadcss": "~0.1.4"
+    "loadcss": "~0.1.4",
+    "modernizr-min": "~2.8.3",
+    "modernizr": "~2.8.3"
   }
 }

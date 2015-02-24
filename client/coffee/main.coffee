@@ -37,3 +37,6 @@ $(document).ready ->
     height: '25em'
     zoom: 6
   )
+  if /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    $('#page-top').css('background-image', 'url(\'/assets/img/bkgrnd-mobile.jpg\') cover')
+  else
